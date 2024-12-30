@@ -6,17 +6,34 @@ from .models import User
 from .serializer import UserSerializer
 
 # Create your views here.
+# @api_view(['GET'])
+# def get_user(request):
+#     users = User.objects.all()
+#     serializer = UserSerializer(users, many=True)
+#     return Response(serializer.data)
+
+# @api_view(['POST'])
+# def create_user(request):
+#     serializer = UserSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data , status=status.HTTP_201_CREATED)
+    
+#     return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['GET'])
 def get_user(request):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
+    user = User.objects.all()
+    serializer = UserSerializer(user, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
 def create_user(request):
-    serializer = UserSerializer(data=request.data)
+    serializer = UserSerializer(data= request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data , status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
+
+
